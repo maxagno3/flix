@@ -1,0 +1,11 @@
+<ul>
+ <% @movies.each do |movie| %>
+    <li>
+      <strong><%= movie.name %></strong>
+      <p><%= movie.description %></p>
+    </li>
+    <h4><%= movie.genre %></h4>
+    <h3>Rating: <%= movie.rating %></h3>
+    <small><%= movie.released_at %></small>
+  <% end %>
+</ul>
