@@ -1,0 +1,16 @@
+<section class="movie">
+    <div class="summary">
+      <h2><%= @movie.name %></h2>
+      <h3><%= format_date(@movie) %></h3>
+      <span class="stars">
+        <%= format_rating(@movie) %>
+      </span>
+      <p><%= @movie.description %></p>
+      <h4><%= @movie.genre %></h4>
+    </div>
+</section>
+
+<section class="admin">
+  <%= link_to "Edit", edit_movie_path, class: "button" %>
+  <%= link_to "Delete", movie_path, class: "button", method: :delete, data: {confirm: "Really?!"} %>
+</section>
