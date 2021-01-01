@@ -1,0 +1,14 @@
+<h1>Writing review for <%= link_to @movie.name, @movie %></h1>
+
+<%= form_with(model: [@movie, @review], local: true) do |f| %>
+
+  <%= render 'shared/errors', object: @review %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, autofocus: true %>
+
+  <%= f.label :review %>
+  <%= f.text_area :review, rows: 5 %>
+
+  <%= f.submit %>
+<% end %>

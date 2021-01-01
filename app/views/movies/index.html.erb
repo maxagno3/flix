@@ -1,5 +1,8 @@
 <% @movies.each do |movie| %>
   <section class="movie">
+    <div class="image">
+      <%= image_tag movie.poster_image %>
+    </div>
     <div class="summary">
       <h2><%= link_to movie.name, movie_path(movie) %></h2>
       <h3><%= format_date(movie) %></h3>

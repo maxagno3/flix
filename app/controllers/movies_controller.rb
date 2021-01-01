@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all
+    @movies = Movie.upcoming
   end
 
   def show
@@ -13,8 +13,11 @@ class MoviesController < ApplicationController
 
   def update
     @movie = Movie.find(params[:id])
-    @movie.update(update_movie)
-    redirect_to @movie
+    if @movie.update(update_movie)
+      redirect_to @movie, notice: "Successfully updated"
+    else
+      render :edit
+    end
   end
 
   def new
@@ -23,8 +26,11 @@ class MoviesController < ApplicationController
 
   def create
     @movie = Movie.new(update_movie)
-    @movie.save
-    redirect_to @movie
+    if @movie.save
+      redirect_to @movie, notice: "Successfully created"
+    else
+      render :new
+    end
   end
 
   def destroy
@@ -35,6 +41,6 @@ class MoviesController < ApplicationController
 
   private
   def update_movie
-    params.require(:movie).permit(:name, :description, :rating, :released_at)
+    params.require(:movie).permit(:name, :description, :rating, :released_at, :poster_image)
   end
 end

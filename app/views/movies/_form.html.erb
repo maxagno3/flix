@@ -1,4 +1,6 @@
 <%= form_with(model: movie, local: true) do |f| %>
+  <%= render "shared/errors", object: movie %>
+
   <%= f.label :name %>
   <%= f.text_field :name, autofocus: true %>
 
@@ -10,6 +12,9 @@
 
   <%= f.label :description %>
   <%= f.text_area :description, rows: 5 %>
+
+  <%= f.label :poster_image %>
+  <%= f.text_field :poster_image %>
 
   <%= f.submit %>
 <% end %>

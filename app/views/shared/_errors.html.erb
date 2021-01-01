@@ -1,0 +1,11 @@
+<% if object.errors.any? %>
+  <section class="errors">
+    <h2>Form could not be submitted due to error.</h2>
+    <h3>Following errors have occured:</h3>
+    <ul>
+      <% object.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
