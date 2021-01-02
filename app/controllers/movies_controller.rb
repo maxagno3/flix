@@ -1,10 +1,18 @@
 class MoviesController < ApplicationController
+
+  before_action :require_signin, except: [:index, :show]
+  before_action :require_admin, except: [:index, :show]
+
   def index
     @movies = Movie.upcoming
   end
 
   def show
     @movie = Movie.find(params[:id])
+    @likers = @movie.likers
+    if current_user
+      @current_liker = current_user.favs.find_by(movie_id: @movie.id)
+    end
   end
 
   def edit
@@ -40,6 +48,7 @@ class MoviesController < ApplicationController
   end
 
   private
+
   def update_movie
     params.require(:movie).permit(:name, :description, :rating, :released_at, :poster_image)
   end

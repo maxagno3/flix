@@ -1,8 +1,32 @@
 <section class="user">
-  <h1><%= @users.name %></h1>
-  <h4><%= mail_to(@users.email) %></h4>
-  <div class="actions">
-    <%= link_to 'Edit Account', edit_user_path(@users), class: "button edit" %>
-    <%= link_to 'Delete Account', user_path(@users), class: "button delete", method: :delete, data: {confirm: "Are you sure?"} %>
-  </div>
+    <h1><%= @users.name %></h1>
+    <h4><%= mail_to(@users.email) %></h4>
+    <% if current_user?(@users) %>
+      <div class="actions">
+        <%= link_to 'Edit Account', edit_user_path(@users), class: "button edit" %>
+        <%= link_to 'Delete Account', user_path(@users), class: "button delete", method: :delete, data: {confirm: "Are you sure?"} %>
+      </div>
+    <% end %>
+    <% if @reviews.present? %>
+      <h3>Reviews:</h3>
+      <% @reviews.each do |r| %>
+        <div class="review">
+          <div class="details">
+            <span class="title"><%= link_to r.movie.name, r.movie %></span>
+            <p><%= r.review %></p>
+            <span class="date"><%= time_ago_in_words(r.updated_at) %> ago</span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <aside>
+      <% if @movie_likers.present? %>
+        <h4>Movies liked:</h4>
+        <ul>
+          <% @movie_likers.each do |movie| %>
+            <li><%= link_to movie.name, movie %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </aside>
 </section>

@@ -1,6 +1,14 @@
 <section class="movie">
     <div class="image">
       <%= image_tag @movie.poster_image %>
+      <% if @current_liker %>
+        <%= button_to "Unlike", movie_fav_path(@movie, @current_liker), method: :delete %>
+      <% else %>
+        <%= button_to "Like", movie_favs_path(@movie) %>
+      <% end %>
+        <div class="count">
+          <%= @likers.count %>
+        </div>
     </div>
     <div class="summary">
       <h2><%= @movie.name %></h2>
@@ -11,11 +19,24 @@
       <p><%= @movie.description %></p>
       <h4><%= @movie.genre %></h4>
       <%= link_to 'Write Review', new_movie_review_path(@movie) %>
-      <%= link_to 'Reviews', movie_reviews_path(@movie) %>
+      <%= link_to 'Reviews', movie_reviews_path(@movie), class: "review" %>
     </div>
 </section>
 
-<section class="admin">
-  <%= link_to "Edit", edit_movie_path, class: "button" %>
-  <%= link_to "Delete", movie_path, class: "button", method: :delete, data: {confirm: "Really?!"} %>
-</section>
+<aside>
+  <% if @likers.present? %>
+    <h4>Liked by:</h4>
+    <ul>
+      <% @likers.each do |user| %>
+        <h4><%= link_to user.name, user %></h4>
+      <% end %>
+    </ul>
+  <% end %>
+</aside>
+
+<% if current_user_admin? %>
+  <section class="admin">
+    <%= link_to "Edit", edit_movie_path, class: "button" %>
+    <%= link_to "Delete", movie_path, class: "button", method: :delete, data: {confirm: "Really?!"} %>
+  </section>
+<% end %>
