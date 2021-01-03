@@ -3,6 +3,8 @@ class Movie < ApplicationRecord
   has_many :reviews
   has_many :favs, dependent: :destroy
   has_many :likers, through: :favs, source: :user
+  has_many :categorizations, dependent: :destroy
+  has_many :genres, through: :categorizations
 
   validates :name, :released_at ,presence: true
 

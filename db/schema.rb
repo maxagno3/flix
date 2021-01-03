@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_02_152622) do
+ActiveRecord::Schema.define(version: 2021_01_03_154659) do
+
+  create_table "categorizations", force: :cascade do |t|
+    t.integer "movie_id", null: false
+    t.integer "genre_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_id"], name: "index_categorizations_on_genre_id"
+    t.index ["movie_id"], name: "index_categorizations_on_movie_id"
+  end
 
   create_table "favs", force: :cascade do |t|
     t.integer "movie_id", null: false
@@ -19,6 +28,12 @@ ActiveRecord::Schema.define(version: 2021_01_02_152622) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["movie_id"], name: "index_favs_on_movie_id"
     t.index ["user_id"], name: "index_favs_on_user_id"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "movies", force: :cascade do |t|
@@ -50,6 +65,8 @@ ActiveRecord::Schema.define(version: 2021_01_02_152622) do
     t.boolean "admin", default: false
   end
 
+  add_foreign_key "categorizations", "genres"
+  add_foreign_key "categorizations", "movies"
   add_foreign_key "favs", "movies"
   add_foreign_key "favs", "users"
   add_foreign_key "reviews", "movies"

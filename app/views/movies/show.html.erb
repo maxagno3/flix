@@ -32,6 +32,14 @@
       <% end %>
     </ul>
   <% end %>
+  <% if @genres.present? %>
+    <h4>Genres:</h4>
+    <ul>
+      <% @genres.each do |genre| %>
+        <h4><%= genre.name %></h4>
+      <% end %>
+    </ul>
+  <% end %>
 </aside>
 
 <% if current_user_admin? %>
