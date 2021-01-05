@@ -1,7 +1,21 @@
 <header>
     <nav>
       <%= link_to image_tag("logo"), movies_path %>
-      <%= link_to "All Movies", movies_path %>
+      <ul class="left">
+        <li>
+          <%= link_to 'Upcoming', filtered_movies_path(:upcoming) %>
+        </li>
+        <li>
+          <%= link_to 'Past', movies_path %>
+        </li>
+        <li>
+          <%= link_to 'Hit', filtered_movies_path(:hit) %>
+        </li>
+        <li>
+          <%= link_to 'Flop', filtered_movies_path(:flop) %>
+        </li>
+      </ul>
+      <%#= link_to "All Movies", movies_path %>
       <ul class="right">
       <% if current_user %>
         <li><%= link_to current_user.name, current_user %></li>

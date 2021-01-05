@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_154659) do
+ActiveRecord::Schema.define(version: 2021_01_05_083254) do
 
   create_table "categorizations", force: :cascade do |t|
     t.integer "movie_id", null: false
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_154659) do
     t.string "genre"
     t.datetime "released_at"
     t.string "poster_image", default: "logo.png"
+    t.string "slug"
   end
 
   create_table "reviews", force: :cascade do |t|

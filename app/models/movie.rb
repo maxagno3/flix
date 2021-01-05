@@ -1,5 +1,7 @@
 class Movie < ApplicationRecord
 
+  before_save :set_slug
+
   has_many :reviews
   has_many :favs, dependent: :destroy
   has_many :likers, through: :favs, source: :user
@@ -14,11 +16,26 @@ class Movie < ApplicationRecord
 
   validates :poster_image, format: {with: /\w+\.(jpg|png)\z/i, message: "must be an JPG or PNG image"}
 
-  def self.upcoming
-    where("released_at > ?", Date.new.strftime("%d %B %Y")).order("released_at")
-  end
+  scope :upcoming, -> { where("released_at > ?", Time.new).order("released_at") }
+
+  scope :past, -> { where("released_at < ?", Time.new).order("released_at") }
+
+  scope :flop, ->(max=0.34e1) { where(rating:max) }
+
+  scope :hit, ->(max=0.9e1) { limit(max) }
 
   def unavailable?
     rating.blank? || rating.zero?
   end
+
+  def to_param
+    slug
+  end
+
+  private
+
+  def set_slug
+    self.slug = name.parameterize
+  end
+
 end
