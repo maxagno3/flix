@@ -1,6 +1,6 @@
 <section class="movie">
     <div class="image">
-      <%= image_tag @movie.poster_image %>
+      <%= main_image(@movie) %>
       <% if @current_liker %>
         <%= button_to "Unlike", movie_fav_path(@movie, @current_liker), method: :delete %>
       <% else %>

@@ -13,8 +13,8 @@
   <%= f.label :description %>
   <%= f.text_area :description, rows: 5 %>
 
-  <%= f.label :poster_image %>
-  <%= f.text_field :poster_image %>
+  <%= f.label :main_image %>
+  <%= f.file_field :main_image %>
 
   <div class="checkboxes">
     <%= f.collection_check_boxes(:genre_ids, Genre.all, :id, :name) %>
